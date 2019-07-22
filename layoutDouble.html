@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="index.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<title>Double Image Layout</title>
+	</head>
+	<body>
+		<header class="header">
+			<a href="index.html"><button type="button" class="btn btn-light homeButton">< Home</button></a>
+			<h1 class="text headerTitle">Double Image Layout</h1>
+		</header>
+		<section class="mainSection">
+			<h2 class="text sectionTitle">Form</h2>
+			<form id="postInfo">
+				<h3 class="textInline">Theme</h3>
+				<p class="textInline">(Leave Name blank if the name is in your images.)</p>
+				<div class="form-row">
+					<div class="col">
+						<label for="name">Name</label>
+						<div class="input-group">
+							<input type="text" placeholder="John Doe" id="name" class="form-control">
+						</div>
+					</div>
+
+					<div class="col">
+						<label for="hexColor">Hexcode Color</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">#</span>
+							</div>
+							<input type="text" placeholder="195777" id="hexColor" class="form-control">
+						</div>
+					</div>
+					
+					<div class="col">
+						<label for="imgUrlTop">Top Image Url</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">https://</span>
+							</div>
+							<input type="text" placeholder="i.imgur.com/top-img.png" id="imgUrlTop" class="form-control">
+						</div>
+					</div>
+
+					<div class="col">
+						<label for="imgUrlLeft">Left Image Url</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">https://</span>
+							</div>
+							<input type="text" placeholder="i.imgur.com/left-img.png" id="imgUrlLeft" class="form-control">
+						</div>
+					</div>
+				</div>
+
+				<h3 class="innerSectTitle">Basic Info</h3>
+				<div class="form-row">
+					<div class="col">
+						<label for="location">Location</label>
+						<div class="input-group">
+							<input type="text" placeholder="Home" id="location" class="form-control">
+						</div>
+					</div>
+
+					<div class="col">
+						<label for="mood">Mood</label>
+						<div class="input-group">
+							<input type="text" placeholder="Positive" id="mood" class="form-control">
+						</div>
+					</div>
+
+					<div class="col">
+						<label for="condition">Condition</label>
+						<div class="input-group">
+							<input type="text" placeholder="Healthy" id="condition" class="form-control">
+
+						</div>
+					</div>
+
+					<div class="col">
+						<label for="with">With</label>
+						<div class="input-group">
+							<input type="text" placeholder="Mary Sue" id="with" class="form-control">
+						</div>
+					</div>
+				</div>
+
+				<h3 class="innerSectTitle textInline">Main Body</h3>
+				<p class="textInline">(White space does nothing in this editor, so all code needed to start paragraphs is added automatically.)</p>
+				<textarea placeholder="John Doe stood up and shook Mary Sue&rsquo;s hand. &ldquo;Hi,&rdquo; said John.&#10;&#10;<br><br>[color=#ffffff]▀▀▀[/color]John then did something else." rows="12" name="mainBody" id="mainBody" class="form-control"></textarea>
+
+				<h3 class="innerSectTitle">OOC Comments</h3>
+				<input type="text" placeholder="I hope you enjoyed my post." name="ooc" class="form-control">
+			</form>
+		</section>
+		<footer>
+			<h2 class="sectionTitle footerText">Code to Copy</h2>
+			<p id="copyPasteTxt"></p>
+		</footer>
+		<script type="text/javascript" src="layoutDouble.js"></script>
+	</body>
+</html>

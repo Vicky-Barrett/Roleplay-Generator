@@ -1,0 +1,64 @@
+.body {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.header {
+	padding: 5px;
+	color: white;
+	background-color: #195777;
+}
+
+.headerTitle {
+	text-align: center;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.headerLabel {
+	font-size: 20px;
+}
+
+.homeButton {
+	margin-top: 15px;
+	float: left;
+}
+
+.sectionTitle {
+	margin-top: 40px;
+	color: #195777;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.innerSectTitle {
+	margin-top: 20px;
+}
+
+.textInline {
+	display: inline-block;
+}
+
+.mainSection, .footerText {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	padding: 5px;
+	padding-top: 20px;
+	background-color: #195777;
+	color: white;
+}
+
+#copyPasteTxt {
+	margin: 0;
+	padding: 5px;
+	background-color: #195777;
+	color: white;
+	font-family: "courier new";
+}
