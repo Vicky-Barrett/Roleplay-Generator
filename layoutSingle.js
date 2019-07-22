@@ -63,7 +63,7 @@ $(document).on("keyup", function(button) {
 
 		var bbcodeSpacer = "»[/color][color=transparent]▀▀▀▀[/color][color=#" + mainColor + "]☙♥❧[/color][color=transparent]▀▀▀▀[/color]";
 		if (form.name.value != "") {
-			bbcode.name = "[size=9][color=#" + mainColor + "]☙♥❧[/color][color=transparent]▀▀▀▀[/color][/size][color=#" + mainColor + "][size=24]«" + form.name.value + "»[/size][/color][size=9][color=transparent]▀▀▀▀[/color][color=#" + mainColor + "][size=9]☙♥❧[/color][/size]<br>";
+			bbcode.name = "[size=9][color=#" + mainColor + "]☙♥❧[/color][color=transparent]▀▀▀▀[/color][/size][color=#" + mainColor + "][size=24]" + form.name.value + "[/size][/color][size=9][color=transparent]▀▀▀▀[/color][color=#" + mainColor + "][size=9]☙♥❧[/color][/size]<br>";
 		}
 		if (form.imgUrl.value != "") {
 			let urlArr = jQuery.map((form.imgUrl.value + "").split(""), function(c){return c;});
@@ -101,7 +101,7 @@ $(document).on("keyup", function(button) {
 			"[align=center]" + bbcode.gradientBottom + "<br>" +
 			"[size=9]" + bbcode.location + bbcode.mood + bbcode.condition + bbcode.with + "<br><br>" +
 			"[spoiler][color=#" + mainColor + "]" + bbcode.ooc + 
-			"«Credit: Layout built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator.»[/color][/size][/spoiler][/align]";
+			"«Credit: Layout built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator (v1.2).»[/color][/size][/spoiler][/align]";
 	}
 });
 
