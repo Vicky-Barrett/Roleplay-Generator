@@ -25,14 +25,20 @@
 }
 
 .sectionTitle {
-	margin-top: 40px;
+	margin-top: 60px;
 	color: #195777;
 	font-size: 40px;
 	font-weight: bold;
 }
 
+.required {
+	display: inline-block;
+	color: #bc0303;
+	margin: 0;
+}
+
 .innerSectTitle {
-	margin-top: 20px;
+	margin-top: 60px;
 }
 
 .textInline {

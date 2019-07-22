@@ -10,23 +10,16 @@
 	<body>
 		<header class="header">
 			<a href="index.html"><button type="button" class="btn btn-light homeButton">< Home</button></a>
-			<h1 class="text headerTitle">Single Image Layout</h1>
+			<h1 class="headerTitle">Single Image Layout</h1>
 		</header>
 		<section class="mainSection">
-			<h2 class="text sectionTitle">Form</h2>
+			<h2 class="textInline sectionTitle">Form</h2>
+			<div class="alert alert-secondary textInline"><p class="required">*</p>&nbsp;= required. Any optional fields you leave blank will not appear in your post.</div>
 			<form id="postInfo">
-				<h3 class="textInline">Theme</h3>
-				<p class="textInline">(Leave Name blank if the name is in your image.)</p>
+				<label for="hexColor"><h3>Theme</h3></label>
 				<div class="form-row">
 					<div class="col">
-						<label for="name">Name</label>
-						<div class="input-group">
-							<input type="text" placeholder="John Doe" id="name" class="form-control">
-						</div>
-					</div>
-
-					<div class="col">
-						<label for="hexColor">Hexcode Color</label>
+						<label for="hexColor">Hexcode Color<p class="required">*</p></label>
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text">#</span>
@@ -34,7 +27,14 @@
 							<input type="text" placeholder="195777" id="hexColor" class="form-control">
 						</div>
 					</div>
-					
+
+					<div class="col">
+						<label for="name">Name</label>
+						<div class="input-group">
+							<input type="text" placeholder="John Doe" id="name" class="form-control">
+						</div>
+					</div>
+
 					<div class="col">
 						<label for="imgUrl">Image Url</label>
 						<div class="input-group">
@@ -46,7 +46,7 @@
 					</div>
 				</div>
 
-				<h3 class="innerSectTitle">Basic Info</h3>
+				<label for="location"><h3 class="innerSectTitle">Basic Info</h3></label>
 				<div class="form-row">
 					<div class="col">
 						<label for="location">Location</label>
@@ -77,12 +77,12 @@
 					</div>
 				</div>
 
-				<h3 class="innerSectTitle textInline">Main Body</h3>
-				<p class="textInline">(White space does nothing in this editor, so all code needed to start paragraphs is added automatically.)</p>
-				<textarea placeholder="John Doe stood up and shook Mary Sue&rsquo;s hand. &ldquo;Hi,&rdquo; said John.&#10;&#10;<br><br>[color=#ffffff]▀▀▀[/color]John then did something else." rows="12" name="mainBody" id="mainBody" class="form-control"></textarea>
+				<label for="mainBody"><h3 class="innerSectTitle">Main Body<p class="required">*</p></h3></label>
+				<div class="alert alert-secondary textInline">White space does nothing in this editor, so all code needed to start paragraphs is added automatically. You may use BBCode.</div>
+				<textarea placeholder="John Doe stood and shook Mary Sue&rsquo;s hand. &ldquo;Hi,&rdquo; said John.&#10;&#10;<br><br>:tab:John then did something else." rows="12" name="mainBody" id="mainBody" class="form-control"></textarea>
 
-				<h3 class="innerSectTitle">OOC Comments</h3>
-				<input type="text" placeholder="I hope you enjoyed my post." name="ooc" class="form-control">
+				<label for="ooc"><h3 class="innerSectTitle">OOC Comments</h3></label>
+				<input type="text" placeholder="I hope you enjoyed my post." name="ooc" id="ooc" class="form-control">
 			</form>
 		</section>
 		<footer>
