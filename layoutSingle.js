@@ -1,3 +1,23 @@
+var colorpickersCustom = KellyColorPicker.attachToInputByClass("hexColor", {
+	alpha_slider: false,
+	size: 150,
+	popupClass: "popupColorPicker"
+});
+var mainBodyParagraphs = {
+	"list": ["mainBody1"],
+	"fullPassage": "",
+	"updatePassage": function() {
+		this.fullPassage = "";
+		for (let i = 0; i < this.list.length; ++i) {
+			if (i == 0) {
+				this.fullPassage = document.getElementById(this.list[i]).value;
+			} else {
+				this.fullPassage = this.fullPassage + "\n\n<br><br>:tab: " + document.getElementById(this.list[i]).value;
+			}
+		}
+	}
+}
+
 function makeGradient(color) {
 	var hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g'];
 	var lgDig = color[0].toString();
@@ -19,7 +39,7 @@ function makeGradient(color) {
 	return reducedGradient;
 }
 
-$(document).on("keyup", function(button) {
+function updateBbcode(button) {
 	if (button.which == 16 || button.which == 17 || (button.which >= 37 && button.which <= 40)) {
 		return;
 	} else {
@@ -34,14 +54,49 @@ $(document).on("keyup", function(button) {
 			"mood": "",
 			"condition": "",
 			"with": "",
+			"mainBodyMargin": "",
 			"mainBody": "",
 			"ooc": ""
 		};
+		mainBodyParagraphs.updatePassage();
+		var mainBodyCount = {
+			"lines": 0,
+			"content": mainBodyParagraphs.fullPassage,
+			"update": function() {
+				function removeSpacing(content, spacingCount) {
+					if (content.search("<br><br>:tab: ") <= -1) {
+						return {"content":content, "spacingCount":spacingCount};
+					} else {
+						++spacingCount;
+						var contentArr = jQuery.map((content + "").split(""), function(c){return c;});
+						var newContent = "";
+						contentArr.splice(content.search("\n\n<br><br>:tab: "), 16);
+						for (let i = 0; i < contentArr.length; ++i) {
+							newContent = newContent + contentArr[i];
+						}
+						content = newContent;
+						console.log(content);
+						return removeSpacing(content, spacingCount);
+					}
+				}
+				let contentObj = removeSpacing(this.content, 0);
+				this.content = contentObj.content;
+				this.lines = Math.trunc(this.content.length / 65) + 1 + (contentObj.spacingCount * 2);
+			}
+		}
+		mainBodyCount.update();
+		if (mainBodyCount.lines < 15) {
+			bbcode.mainBodyMargin = "[imgleft]https://i.imgur.com/VV0U5zc.jpg[/imgleft][imgright]https://i.imgur.com/VV0U5zc.jpg[/imgright]";
+		}
 
 		var hexR = jQuery.map((mainColor + "").split(""), function(c){return c;});
 		if (hexR[0] == '#') {
+			var newColor = "";
 			hexR.splice(0, 1);
-			mainColor = hexR[0] + hexR[1] + hexR[2] + hexR[3] + hexR[4] + hexR[5];
+			for (let i = 0; i < hexR.length; ++i) {
+				newColor = newColor + hexR[i];
+			}
+			mainColor = newColor;
 		}
 		var hexG = hexR.splice(2, 4);
 		var hexB = hexG.splice(2, 2);
@@ -68,9 +123,9 @@ $(document).on("keyup", function(button) {
 		if (form.imgUrl.value != "") {
 			let urlArr = jQuery.map((form.imgUrl.value + "").split(""), function(c){return c;});
 			if (urlArr[0] == 'h' && urlArr[1] == 't' && urlArr[2] == 't' && urlArr[3] == 'p' && (urlArr[4] == ':' || (urlArr[4] == 's' && urlArr[5] == ':'))) {
-				bbcode.imgUrl = "[img]" + form.imgUrl.value + "[/img]<br>";
+				bbcode.imgUrl = "[img]" + form.imgUrl.value + "[/img]<br><br>";
 			} else {
-				bbcode.imgUrl = "[img]https://" + form.imgUrl.value + "[/img]<br>";
+				bbcode.imgUrl = "[img]https://" + form.imgUrl.value + "[/img]<br><br>";
 			}
 		}
 		if (form.location.value != "") {
@@ -94,20 +149,43 @@ $(document).on("keyup", function(button) {
 		if (form.ooc.value != "") {
 			bbcode.ooc = "«OOC Comments: " + form.ooc.value + "»<br>";
 		}
+
 		document.getElementById("copyPasteTxt").innerHTML = "[align=center]" + bbcode.imgUrl +	
 			bbcode.name +
 			bbcode.gradientTop + "[/align]<br>" +
-			":tab:" + form.mainBody.value + "<br><br>" +
+			bbcode.mainBodyMargin + ":tab: " + mainBodyParagraphs.fullPassage + "<br><br>" +
 			"[align=center]" + bbcode.gradientBottom + "<br>" +
 			"[size=9]" + bbcode.location + bbcode.mood + bbcode.condition + bbcode.with + "<br><br>" +
 			"[spoiler][color=#" + mainColor + "]" + bbcode.ooc + 
-			"«Credit: Layout built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator (v1.2).»[/color][/size][/spoiler][/align]";
+			"«Credit: Layout built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator (v1.3).»[/color][/size][/spoiler][/align]";
 	}
+}
+
+$(document).on("keyup", function(button) {
+	updateBbcode(button);
+});
+$(".header").on("click", function(button) {
+	updateBbcode(button);
+});
+$(".mainSection").on("click", function(button) {
+	updateBbcode(button);
 });
 
-$("#mainBody").keypress(function(button) {
+$("#postInfo").keypress(function(button) {
 	if (button.which == 13) {
-		document.getElementById("mainBody").value = document.getElementById("mainBody").value + "\n\n<br><br>:tab:";
+		// document.getElementById("mainBody").value = document.getElementById("mainBody").value + "\n\n<br><br>:tab: ";
 		button.preventDefault();
+	}
+});
+$("#btnAddParagraph").click(function() {
+	var paraNumber = mainBodyParagraphs.list.length + 1;
+	mainBodyParagraphs.list.push("mainBody" + paraNumber);
+	$("<textarea placeholder='Paragraph " + paraNumber + "' rows='4' id='mainBody" + paraNumber + "' name='mainBody" + paraNumber + "' class='form-control spacedElement'></textarea>").insertBefore("#modifyMainBody");
+});
+$("#btnDelParagraph").click(function() {
+	var paraNumber = mainBodyParagraphs.list.length;
+	if (paraNumber > 1) {
+		$("#mainBody" + paraNumber).remove();
+		mainBodyParagraphs.list.pop();
 	}
 });

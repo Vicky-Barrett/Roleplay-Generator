@@ -5,88 +5,97 @@
 		<link rel="stylesheet" type="text/css" href="index.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://nc22.github.io/HTML5-Color-Picker/html5kellycolorpicker.min.js"></script>
 		<title>Single Image Layout</title>
 	</head>
 	<body>
 		<header class="header">
-			<a href="index.html"><button type="button" class="btn btn-light homeButton">< Home</button></a>
+			<a href="../index.html"><button type="button" class="btn btn-light homeButton">< Home</button></a>
 			<h1 class="headerTitle">Single Image Layout</h1>
 		</header>
 		<section class="mainSection">
-			<h2 class="textInline sectionTitle">Form</h2>
+			<h2 class="textInline sectionTitle sectionTitleTop">Form</h2>
 			<div class="alert alert-secondary textInline"><p class="required">*</p>&nbsp;= required. Any optional fields you leave blank will not appear in your post.</div>
 			<form id="postInfo">
-				<label for="hexColor"><h3>Theme</h3></label>
-				<div class="form-row">
-					<div class="col">
-						<label for="hexColor">Hexcode Color<p class="required">*</p></label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">#</span>
+				<div>
+					<label for="hexColor"><h3>Theme</h3></label>
+					<div class="form-row">
+						<div class="col">
+							<label for="hexColor">Hexcode Color<p class="required">*</p></label>
+							<div class="input-group">
+								<input type="text" placeholder="#ffffff" value="#ffffff" id="hexColor" class="form-control hexColor">
 							</div>
-							<input type="text" placeholder="195777" id="hexColor" class="form-control">
 						</div>
-					</div>
 
-					<div class="col">
-						<label for="name">Name</label>
-						<div class="input-group">
-							<input type="text" placeholder="John Doe" id="name" class="form-control">
-						</div>
-					</div>
-
-					<div class="col">
-						<label for="imgUrl">Image Url</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">https://</span>
+						<div class="col">
+							<label for="name">Name</label>
+							<div class="input-group">
+								<input type="text" placeholder="John Doe" id="name" class="form-control">
 							</div>
-							<input type="text" placeholder="i.imgur.com/oc-img.png" id="imgUrl" class="form-control">
+						</div>
+
+						<div class="col">
+							<label for="imgUrl">Image Url</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">https://</span>
+								</div>
+								<input type="text" placeholder="i.imgur.com/oc-img.png" id="imgUrl" class="form-control">
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<label for="location"><h3 class="innerSectTitle">Basic Info</h3></label>
-				<div class="form-row">
-					<div class="col">
-						<label for="location">Location</label>
-						<div class="input-group">
-							<input type="text" placeholder="Home" id="location" class="form-control">
+				<div>
+					<label for="location"><h3 class="innerSectTitle">Basic Info</h3></label>
+					<div class="form-row">
+						<div class="col">
+							<label for="location">Location</label>
+							<div class="input-group">
+								<input type="text" placeholder="Home" id="location" class="form-control">
+							</div>
 						</div>
-					</div>
 
-					<div class="col">
-						<label for="mood">Mood</label>
-						<div class="input-group">
-							<input type="text" placeholder="Positive" id="mood" class="form-control">
+						<div class="col">
+							<label for="mood">Mood</label>
+							<div class="input-group">
+								<input type="text" placeholder="Positive" id="mood" class="form-control">
+							</div>
 						</div>
-					</div>
 
-					<div class="col">
-						<label for="condition">Condition</label>
-						<div class="input-group">
-							<input type="text" placeholder="Healthy" id="condition" class="form-control">
+						<div class="col">
+							<label for="condition">Condition</label>
+							<div class="input-group">
+								<input type="text" placeholder="Healthy" id="condition" class="form-control">
+							</div>
 						</div>
-					</div>
 
-					<div class="col">
-						<label for="with">With</label>
-						<div class="input-group">
-							<input type="text" placeholder="Mary Sue" id="with" class="form-control">
+						<div class="col">
+							<label for="with">With</label>
+							<div class="input-group">
+								<input type="text" placeholder="Mary Sue" id="with" class="form-control">
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<label for="mainBody"><h3 class="innerSectTitle">Main Body<p class="required">*</p></h3></label>
-				<div class="alert alert-secondary textInline">White space does nothing in this editor, so all code needed to start paragraphs is added automatically. You may use BBCode.</div>
-				<textarea placeholder="John Doe stood and shook Mary Sue&rsquo;s hand. &ldquo;Hi,&rdquo; said John.&#10;&#10;<br><br>:tab:John then did something else." rows="12" name="mainBody" id="mainBody" class="form-control"></textarea>
+				<div id="divMainBody">
+					<label for="mainBody1"><h3 class="innerSectTitle">Main Body<p class="required">*</p></h3></label>
+					<textarea placeholder="Paragraph 1" rows="4" name="mainBody1" id="mainBody1" class="form-control"></textarea>
+					<div id="modifyMainBody" class="btn-group spacedElement">
+						<button type="button" id="btnAddParagraph" class="btn btn-secondary">Add Paragraph</button>
+						<button type="button" id="btnDelParagraph" class="btn btn-danger">Delete Last Paragraph</button>
+					</div>
+				</div>
 
-				<label for="ooc"><h3 class="innerSectTitle">OOC Comments</h3></label>
-				<input type="text" placeholder="I hope you enjoyed my post." name="ooc" id="ooc" class="form-control">
+				<div>
+					<label for="ooc"><h3 class="innerSectTitle">OOC Comments</h3></label>
+					<input type="text" placeholder="I hope you enjoyed my post." name="ooc" id="ooc" class="form-control">
+				</div>
 			</form>
 		</section>
 		<footer>
-			<h2 class="sectionTitle footerText">Code to Copy</h2>
+			<h2 class="sectionTitle copyPasteTitle">Code to Copy</h2>
 			<p id="copyPasteTxt"></p>
 		</footer>
 		<script type="text/javascript" src="layoutSingle.js"></script>

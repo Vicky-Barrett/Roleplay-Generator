@@ -31,9 +31,14 @@
 	font-weight: bold;
 }
 
+.sectionTitleTop {
+	margin-top: 40px;
+}
+
 .required {
 	display: inline-block;
-	color: #bc0303;
+	font-weight: bold;
+	color: #dc3545;
 	margin: 0;
 }
 
@@ -45,20 +50,40 @@
 	display: inline-block;
 }
 
-.mainSection, .footerText {
+.popupColorPicker {
+	position : absolute;
+	display : none;
+	margin-left: 10%;
+	border-radius: 100px;
+	background-color: rgb(25, 87, 119, 0.5);
+}
+
+.mainSection, .copyPasteTitle {
 	padding-left: 5px;
 	padding-right: 5px;
 }
 
+.spacedElement {
+	margin-top: 5px;
+}
+
+.spacedElementLrg {
+	margin-top: 15px;
+}
+
+.content {
+	min-height: calc(100vh - 120px);
+}
+
 .footer {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	padding: 5px;
-	padding-top: 20px;
+	height: 120px;
 	background-color: #195777;
 	color: white;
+}
+
+.footerText {
+	position: relative;
+	top: 20px;
 }
 
 #copyPasteTxt {
