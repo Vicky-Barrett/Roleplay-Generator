@@ -3,6 +3,7 @@ var colorpickersCustom = KellyColorPicker.attachToInputByClass("hexColor", {
 	size: 150,
 	popupClass: "popupColorPicker"
 });
+
 var mainBodyParagraphs = {
 	"list": ["mainBody1"],
 	"fullPassage": "",
@@ -12,11 +13,13 @@ var mainBodyParagraphs = {
 			if (i == 0) {
 				this.fullPassage = document.getElementById(this.list[i]).value;
 			} else {
-				this.fullPassage = this.fullPassage + "\n\n<br><br>:tab: " + document.getElementById(this.list[i]).value;
+				this.fullPassage = this.fullPassage + "<br><br>:tab: " + document.getElementById(this.list[i]).value;
 			}
 		}
 	}
 }
+
+var copyPasteCode = "";
 
 function makeGradient(color) {
 	var hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g'];
@@ -44,8 +47,8 @@ function updateBbcode(button) {
 		return;
 	} else {
 		var form = document.getElementById("postInfo");
-		var mainColor = form.hexColor.value;
 		var bbcode = {
+			"color": form.hexColor.value,
 			"gradientTop": "",
 			"gradientBottom": "",
 			"name": "",
@@ -56,7 +59,8 @@ function updateBbcode(button) {
 			"with": "",
 			"mainBodyMargin": "",
 			"mainBody": "",
-			"ooc": ""
+			"ooc": "",
+			"copyPaste": ""
 		};
 		mainBodyParagraphs.updatePassage();
 		var mainBodyCount = {
@@ -70,12 +74,11 @@ function updateBbcode(button) {
 						++spacingCount;
 						var contentArr = jQuery.map((content + "").split(""), function(c){return c;});
 						var newContent = "";
-						contentArr.splice(content.search("\n\n<br><br>:tab: "), 16);
+						contentArr.splice(content.search("<br><br>:tab: "), 14);
 						for (let i = 0; i < contentArr.length; ++i) {
 							newContent = newContent + contentArr[i];
 						}
 						content = newContent;
-						console.log(content);
 						return removeSpacing(content, spacingCount);
 					}
 				}
@@ -89,36 +92,38 @@ function updateBbcode(button) {
 			bbcode.mainBodyMargin = "[imgleft]https://i.imgur.com/VV0U5zc.jpg[/imgleft][imgright]https://i.imgur.com/VV0U5zc.jpg[/imgright]";
 		}
 
-		var hexR = jQuery.map((mainColor + "").split(""), function(c){return c;});
+		var hexR = jQuery.map((bbcode.color + "").split(""), function(c){return c;});
 		if (hexR[0] == '#') {
 			var newColor = "";
 			hexR.splice(0, 1);
 			for (let i = 0; i < hexR.length; ++i) {
 				newColor = newColor + hexR[i];
 			}
-			mainColor = newColor;
+			bbcode.color = newColor;
 		}
 		var hexG = hexR.splice(2, 4);
 		var hexB = hexG.splice(2, 2);
 		var gradientR = makeGradient(hexR);
 		var gradientG = makeGradient(hexG);
 		var gradientB = makeGradient(hexB);
+		bbcode.gradientTop = "";
+		bbcode.gradientBottom = "";
 		for (let i = 39; i >= 0; --i) {
 			let color = gradientR[i] + gradientG[i] + gradientB[i];
 			bbcode.gradientTop = bbcode.gradientTop + "[color=#" + color + "]▄[/color]";
 			bbcode.gradientBottom = bbcode.gradientBottom + "[color=#" + color + "]▀[/color]";
 		}
-		bbcode.gradientTop = bbcode.gradientTop + "[color=#" + mainColor + "]▄[/color]";
-		bbcode.gradientBottom = bbcode.gradientBottom + "[color=#" + mainColor + "]▀[/color]";
+		bbcode.gradientTop = bbcode.gradientTop + "[color=#" + bbcode.color + "]▄[/color]";
+		bbcode.gradientBottom = bbcode.gradientBottom + "[color=#" + bbcode.color + "]▀[/color]";
 		for (let i = 0; i < 40; ++i) {
 			let color = gradientR[i] + gradientG[i] + gradientB[i];
 			bbcode.gradientTop = bbcode.gradientTop + "[color=#" + color + "]▄[/color]";
 			bbcode.gradientBottom = bbcode.gradientBottom + "[color=#" + color + "]▀[/color]";
 		}
 
-		var bbcodeSpacer = "»[/color][color=transparent]▀▀▀▀[/color][color=#" + mainColor + "]☙♥❧[/color][color=transparent]▀▀▀▀[/color]";
+		var bbcodeSpacer = "»[/color][color=transparent]▀▀▀▀[/color][color=#" + bbcode.color + "]☙♥❧[/color][color=transparent]▀▀▀▀[/color]";
 		if (form.name.value != "") {
-			bbcode.name = "[size=9][color=#" + mainColor + "]☙♥❧[/color][color=transparent]▀▀▀▀[/color][/size][color=#" + mainColor + "][size=24]" + form.name.value + "[/size][/color][size=9][color=transparent]▀▀▀▀[/color][color=#" + mainColor + "][size=9]☙♥❧[/color][/size]<br>";
+			bbcode.name = "[size=9][color=#" + bbcode.color + "]☙♥❧[/color][color=transparent]▀▀▀▀[/color][/size][color=#" + bbcode.color + "][size=24]" + form.name.value + "[/size][/color][size=9][color=transparent]▀▀▀▀[/color][color=#" + bbcode.color + "][size=9]☙♥❧[/color][/size]<br>";
 		}
 		if (form.imgUrl.value != "") {
 			let urlArr = jQuery.map((form.imgUrl.value + "").split(""), function(c){return c;});
@@ -129,35 +134,36 @@ function updateBbcode(button) {
 			}
 		}
 		if (form.location.value != "") {
-			bbcode.location = "[color=#" + mainColor + "]«Location: " + form.location.value + bbcodeSpacer;
+			bbcode.location = "[color=#" + bbcode.color + "]«Location: " + form.location.value + bbcodeSpacer;
 		}
 		if (form.mood.value != "") {
-			bbcode.mood = "[color=#" + mainColor + "]«Mood: " + form.mood.value + bbcodeSpacer;
+			bbcode.mood = "[color=#" + bbcode.color + "]«Mood: " + form.mood.value + bbcodeSpacer;
 		}
 		if (form.condition.value != "") {
-			bbcode.condition = "[color=#" + mainColor + "]«Condition: " + form.condition.value + bbcodeSpacer;
+			bbcode.condition = "[color=#" + bbcode.color + "]«Condition: " + form.condition.value + bbcodeSpacer;
 		}
 		if (form.with.value != "") {
-			bbcode.with = "[color=#" + mainColor + "]«With: " + form.with.value + "»[/color]";
+			bbcode.with = "[color=#" + bbcode.color + "]«With: " + form.with.value + "»[/color]";
 		} else if (bbcode.condition != "") {
-			bbcode.condition = "[color=#" + mainColor + "]«Condition: " + form.condition.value + "»[/color]";
+			bbcode.condition = "[color=#" + bbcode.color + "]«Condition: " + form.condition.value + "»[/color]";
 		} else if (bbcode.mood != "") {
-			bbcode.mood = "[color=#" + mainColor + "]«Mood: " + form.mood.value + "»[/color]";
+			bbcode.mood = "[color=#" + bbcode.color + "]«Mood: " + form.mood.value + "»[/color]";
 		} else if (bbcode.location != "") {
-			bbcode.location = "[color=#" + mainColor + "]«Location: " + form.location.value + "»[/color]";
+			bbcode.location = "[color=#" + bbcode.color + "]«Location: " + form.location.value + "»[/color]";
 		}
 		if (form.ooc.value != "") {
 			bbcode.ooc = "«OOC Comments: " + form.ooc.value + "»<br>";
 		}
 
-		document.getElementById("copyPasteTxt").innerHTML = "[align=center]" + bbcode.imgUrl +	
+		copyPasteCode = "[align=center]" + bbcode.imgUrl +	
 			bbcode.name +
 			bbcode.gradientTop + "[/align]<br>" +
 			bbcode.mainBodyMargin + ":tab: " + mainBodyParagraphs.fullPassage + "<br><br>" +
 			"[align=center]" + bbcode.gradientBottom + "<br>" +
 			"[size=9]" + bbcode.location + bbcode.mood + bbcode.condition + bbcode.with + "<br><br>" +
-			"[spoiler][color=#" + mainColor + "]" + bbcode.ooc + 
-			"«Credit: Layout built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator (v1.3).»[/color][/size][/spoiler][/align]";
+			"[spoiler][color=#" + bbcode.color + "]" + bbcode.ooc + 
+			"«Credit: Layout built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator (v1.4).»[/color][/size][/spoiler][/align]";
+		document.getElementById("copyPasteTxt").innerHTML = copyPasteCode;
 	}
 }
 
@@ -173,7 +179,6 @@ $(".mainSection").on("click", function(button) {
 
 $("#postInfo").keypress(function(button) {
 	if (button.which == 13) {
-		// document.getElementById("mainBody").value = document.getElementById("mainBody").value + "\n\n<br><br>:tab: ";
 		button.preventDefault();
 	}
 });
@@ -189,3 +194,36 @@ $("#btnDelParagraph").click(function() {
 		mainBodyParagraphs.list.pop();
 	}
 });
+$("#btnCopyCode").click(function() {
+	var successPhrases = [
+		"Success!",
+		"Done!",
+		"Good to go!",
+		"Code copied!",
+		"Locked and loaded!",
+		"All set!",
+		"Now get that posted!"
+	];
+	function replaceSpacing(content) {
+		if (content.search("<br>") <= -1) {
+			return content;
+		} else {
+			var contentArr = jQuery.map((content + "").split(""), function(c){return c;});
+			var newContent = "";
+			contentArr.splice(content.search("<br>"), 4, "\n");
+			for (let i = 0; i < contentArr.length; ++i) {
+				newContent = newContent + contentArr[i];
+			}
+			content = newContent;
+			return replaceSpacing(content);
+		}
+	}
+	$("<textarea id='tempTxtClipboard'>" + replaceSpacing(copyPasteCode) + "</textarea>").insertAfter("#copyPasteTxt");
+	document.getElementById("tempTxtClipboard").select();
+	document.execCommand("copy");
+	$("#tempTxtClipboard").remove();
+	$("#alertCopied").remove();
+	$("<div id='alertCopied' class='alert alert-success'><p>" + successPhrases[Math.trunc(Math.random() * 6.9999)] + "</p></div>").insertAfter("#btnCopyCode");
+});
+
+updateBbcode({"which":0});

@@ -86,6 +86,27 @@
 	top: 20px;
 }
 
+#btnCopyCode {
+	display: inline-block;
+	margin-left: 5px;
+	margin-bottom: 20px;
+}
+
+#alertCopied {
+	display: inline-block;
+	width: 200px;
+	height: 38px;
+	position: relative;
+	left: 5px;
+	bottom: 1px;
+	text-align: center;
+}
+
+#alertCopied p {
+	position: relative;
+	bottom: 7px;
+}
+
 #copyPasteTxt {
 	margin: 0;
 	padding: 5px;
