@@ -65,26 +65,8 @@ function updateBbcode(button) {
 		mainBodyParagraphs.updatePassage();
 		var mainBodyCount = {
 			"lines": 0,
-			"content": mainBodyParagraphs.fullPassage,
-			"update": function() {
-				function removeSpacing(content, spacingCount) {
-					if (content.search("<br><br>:tab: ") <= -1) {
-						return {"content":content, "spacingCount":spacingCount};
-					} else {
-						++spacingCount;
-						var contentArr = jQuery.map((content + "").split(""), function(c){return c;});
-						var newContent = "";
-						contentArr.splice(content.search("<br><br>:tab: "), 14);
-						for (let i = 0; i < contentArr.length; ++i) {
-							newContent = newContent + contentArr[i];
-						}
-						content = newContent;
-						return removeSpacing(content, spacingCount);
-					}
-				}
-				let contentObj = removeSpacing(this.content, 0);
-				this.content = contentObj.content;
-				this.lines = Math.trunc(this.content.length / 65) + 1 + (contentObj.spacingCount * 2);
+			"update": function() {				
+				this.lines = Math.trunc(mainBodyParagraphs.fullPassage.length / 65) - 1 + (mainBodyParagraphs.list.length * 2);
 			}
 		}
 		mainBodyCount.update();
@@ -202,7 +184,10 @@ $("#btnCopyCode").click(function() {
 		"Code copied!",
 		"Locked and loaded!",
 		"All set!",
-		"Now get that posted!"
+		"Now get that posted!",
+		"Ready to roll!",
+		"All systems go!",
+		"Ready for takeoff!"
 	];
 	function replaceSpacing(content) {
 		if (content.search("<br>") <= -1) {
@@ -223,7 +208,7 @@ $("#btnCopyCode").click(function() {
 	document.execCommand("copy");
 	$("#tempTxtClipboard").remove();
 	$("#alertCopied").remove();
-	$("<div id='alertCopied' class='alert alert-success'><p>" + successPhrases[Math.trunc(Math.random() * 6.9999)] + "</p></div>").insertAfter("#btnCopyCode");
+	$("<div id='alertCopied' class='alert alert-success'><p>" + successPhrases[Math.trunc(Math.random() * 9.9999)] + "</p></div>").insertAfter("#btnCopyCode");
 });
 
 updateBbcode({"which":0});
