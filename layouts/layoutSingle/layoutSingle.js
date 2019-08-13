@@ -57,22 +57,11 @@ function updateBbcode(button) {
 			"mood": "",
 			"condition": "",
 			"with": "",
-			"mainBodyMargin": "",
 			"mainBody": "",
 			"ooc": "",
 			"copyPaste": ""
 		};
 		mainBodyParagraphs.updatePassage();
-		var mainBodyCount = {
-			"lines": 0,
-			"update": function() {				
-				this.lines = Math.trunc(mainBodyParagraphs.fullPassage.length / 65) - 1 + (mainBodyParagraphs.list.length * 2);
-			}
-		}
-		mainBodyCount.update();
-		if (mainBodyCount.lines < 15) {
-			bbcode.mainBodyMargin = "[imgleft]https://i.imgur.com/VV0U5zc.jpg[/imgleft][imgright]https://i.imgur.com/VV0U5zc.jpg[/imgright]";
-		}
 
 		var hexR = jQuery.map((bbcode.color + "").split(""), function(c){return c;});
 		if (hexR[0] == '#') {
@@ -140,11 +129,11 @@ function updateBbcode(button) {
 		copyPasteCode = "[align=center]" + bbcode.imgUrl +	
 			bbcode.name +
 			bbcode.gradientTop + "[/align]<br>" +
-			bbcode.mainBodyMargin + ":tab: " + mainBodyParagraphs.fullPassage + "<br><br>" +
+			"[list][list][list][list][list][list][list][list][list][list][list][list][list][list][list][list][list][list][list][imgright]https://i.imgur.com/lRXL0gh.jpg[/imgright][align=right][align=left][size=11][color=#424242]:tab: " + mainBodyParagraphs.fullPassage + "<br><br>[/color][/size][/align][/align][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list][/list]" +
 			"[align=center]" + bbcode.gradientBottom + "<br>" +
 			"[size=9]" + bbcode.location + bbcode.mood + bbcode.condition + bbcode.with + "<br><br>" +
 			"[spoiler][color=#" + bbcode.color + "]" + bbcode.ooc + 
-			"«Credit: Layout built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator (v1.4).»[/color][/size][/spoiler][/align]";
+			"«Credit: BBCode built by [b][url=https://www.gaiaonline.com/profiles/vicky-barrett]Vicky Barrett's[/url][/b] post generator (v1.5).»[/color][/size][/spoiler][/align]";
 		document.getElementById("copyPasteTxt").innerHTML = copyPasteCode;
 	}
 }
@@ -164,6 +153,7 @@ $("#postInfo").keypress(function(button) {
 		button.preventDefault();
 	}
 });
+
 $("#btnAddParagraph").click(function() {
 	var paraNumber = mainBodyParagraphs.list.length + 1;
 	mainBodyParagraphs.list.push("mainBody" + paraNumber);
@@ -176,6 +166,7 @@ $("#btnDelParagraph").click(function() {
 		mainBodyParagraphs.list.pop();
 	}
 });
+
 $("#btnCopyCode").click(function() {
 	var successPhrases = [
 		"Success!",
@@ -199,8 +190,7 @@ $("#btnCopyCode").click(function() {
 			for (let i = 0; i < contentArr.length; ++i) {
 				newContent = newContent + contentArr[i];
 			}
-			content = newContent;
-			return replaceSpacing(content);
+			return replaceSpacing(newContent);
 		}
 	}
 	$("<textarea id='tempTxtClipboard'>" + replaceSpacing(copyPasteCode) + "</textarea>").insertAfter("#copyPasteTxt");
